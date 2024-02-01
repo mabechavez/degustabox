@@ -39,8 +39,9 @@ RUN echo 'deb [trusted=yes] https://repo.symfony.com/apt/ /' | tee /etc/apt/sour
 RUN apt update
 RUN apt install symfony-cli
 
+RUN docker-php-ext-install pdo pdo_mysql zip
+
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
-COPY ./docker/xdebug/xdebug.ini $PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini
 COPY ./docker/opcache/opcache.ini $PHP_INI_DIR/conf.d/ddocker-php-ext-opcache.ini
 RUN git config --global user.email "you@example.com" \ 
     && git config --global user.name "Your Name"

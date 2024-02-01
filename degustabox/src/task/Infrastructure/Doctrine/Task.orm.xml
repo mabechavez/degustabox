@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\task\Domain\Model\Task" table="task">
+        <id name="id" type="string" column="id" length="36" />
+        <field name="name" type="string" column="name" length="255" />
+        <field name="status" type="string" column="status" length="255" />
+        <field name="totalTime" type="integer" column="total_time" />
+        <field name="startDate" type="datetime" column="start_date"/>
+        <field name="endDate" type="datetime" column="end_date"/>
+    </entity>
+</doctrine-mapping>

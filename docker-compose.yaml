@@ -15,12 +15,13 @@ services:
       - techjourney
 
   mysql:
+    container_name: mysql_db
     build:
       context: .
       dockerfile: docker/mysql/Dockerfile
     command: --default-authentication-plugin=mysql_native_password
     ports:
-      - "3306:3306"  
+      - "3309:3309"
     environment:
         MYSQL_ROOT_PASSWORD: 1234
         MYSQL_DATABASE: techjourney

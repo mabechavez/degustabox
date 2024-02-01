@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="{{ asset('assets/css/timeTracker.css') }}">
+    <title>Time Tracker</title>
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="form-group">
+        <label for="nombre">Name:</label>
+        <input type="text" class="form-control" id="name" placeholder="Task name"/>
+    </div>
+
+    <div class="form-group">
+        <button class="btn btn-primary" id="startButton">Start</button>
+        <button class="btn btn-danger" id="stopButton" disabled>Stop</button>
+    </div>
+
+    <div class="alert alert-info mt-3" role="alert" id="timerDisplay">00:00:00</div>
+</div>
+
+<script src="{{ asset('assets/js/timeTracker.js') }}"></script>
+</body>
+</html>

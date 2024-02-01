@@ -1,0 +1,8 @@
+inicio:
+    path: /
+    controller: App\task\Infrastructure\Controller\TimeTrackerController::index
+
+check_task:
+    path: /check-task
+    controller: App\UI\TaskController::checkTask
+    methods:  [POST]
