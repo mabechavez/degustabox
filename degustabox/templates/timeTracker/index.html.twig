@@ -42,7 +42,7 @@
             {% for task in tasks %}
                 <tr>
                     <td>{{ task.name }}</td>
-                    <td>{{ task.totalTime[:2] }}</td>
+                    <td>{{ (task.totalTime/1000) }} s</td>
                     <td>{{ task.startDate|date('Y-m-d H:i:s') }}</td>
                     <td>{{ task.endDate|date('Y-m-d H:i:s') }}</td>
                     <td>{{ task.status }}</td>
