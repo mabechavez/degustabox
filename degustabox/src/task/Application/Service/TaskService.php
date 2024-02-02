@@ -22,10 +22,6 @@ class TaskService implements TaskServiceInterface {
 
     public function updateTask(string $name, int $totalTime, \DateTimeInterface $endDate, string $status): Task {
         $existingTask = $this->taskRepository->getByName($name);
-        $totalSeconds = ($totalTime->d * 24 * 60 * 60) +
-            ($totalTime->h * 60 * 60) +
-            ($totalTime->i * 60) +
-            $totalTime->s;
         if ($existingTask) {
             $existingTask->update($totalTime+$existingTask->getTotalTime(), $endDate, $status);
             $this->taskRepository->update($existingTask);
