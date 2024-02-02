@@ -24,7 +24,7 @@ final class TaskController extends AbstractController {
 
         if($this->taskService->checkTask($name)){
             $totalTime = $data['totalTime'];
-            $status = $data['totalTime'] ? 'stoped' : 'started';
+            $status = $data['totalTime'] ? 'stopped' : 'started';
             $this->taskService->updateTask($name, $totalTime, new \DateTime(), $status);
 
             return new JsonResponse('Task updated successfully', 200);
