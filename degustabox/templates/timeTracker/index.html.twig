@@ -24,6 +24,37 @@
     <div class="alert alert-info mt-3" role="alert" id="timerDisplay">00:00:00</div>
 </div>
 
+<div class="container mt-5">
+    <h1>Lista de Tareas</h1>
+
+    {% if tasks is not empty %}
+        <table>
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Tiempo Total</th>
+                <th>Fecha de Iniciación</th>
+                <th>Fecha de Finalización</th>
+                <th>Estado</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for task in tasks %}
+                <tr>
+                    <td>{{ task.name }}</td>
+                    <td>{{ task.totalTime[:2] }}</td>
+                    <td>{{ task.startDate|date('Y-m-d H:i:s') }}</td>
+                    <td>{{ task.endDate|date('Y-m-d H:i:s') }}</td>
+                    <td>{{ task.status }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No hay tareas para mostrar.</p>
+    {% endif %}
+</div>
+
 <script src="{{ asset('assets/js/timeTracker.js') }}"></script>
 </body>
 </html>

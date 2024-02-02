@@ -21,4 +21,8 @@ class InMemoryTaskRepository extends DoctrineRepository implements TaskRepositor
     public function getByName(string $name): ?Task {
         return $this->repository(Task::class)->findOneBy(['name' => $name]);
     }
+
+    public function getAllTasks(): array {
+        return $this->repository(Task::class)->findAll();
+    }
 }

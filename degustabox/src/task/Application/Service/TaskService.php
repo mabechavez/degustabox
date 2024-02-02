@@ -35,4 +35,9 @@ class TaskService implements TaskServiceInterface {
 
         return (bool)$existingTask;
     }
+
+    public function getAllTasks(): ?array {
+
+        return $this->taskRepository->getAllTasks();
+    }
 }
