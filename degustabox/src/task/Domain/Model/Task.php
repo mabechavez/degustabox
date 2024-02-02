@@ -24,9 +24,10 @@ class Task {
         $this->status = $status;
     }
 
-    public function update(Task $task): void {
-        $this->name = $task->getName();
-        $this->startDate = $task->getStartDate();
+    public function update(int $totalTime, \DateTimeInterface $endDate, string $status): void {
+        $this->totalTime = $totalTime;
+        $this->endDate = $endDate;
+        $this->status = $status;
     }
 
     public function getId(): string {

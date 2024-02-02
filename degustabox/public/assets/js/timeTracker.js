@@ -1,22 +1,30 @@
 document.addEventListener('DOMContentLoaded', function () {
     const timerDisplay = document.getElementById('timerDisplay');
-    const nombreInput = document.getElementById('nombre');
+    const nombreInput = document.getElementById('name');
 
     let startTime;
     let timerInterval;
+    let totalTime = 0;
 
     $('#stopButton').on('click', function () {
         clearInterval(timerInterval);
         $('#startButton').prop('disabled', false);
         $('#stopButton').prop('disabled', true);
-        saveTime();
+
+        const stopTime = new Date().getTime();
+        const elapsedTime = stopTime - startTime;
+        totalTime += elapsedTime;
+
+        saveTime(totalTime);
     });
 
     $('#startButton').on('click', function () {
+        totalTime = 0;
         startTime = new Date().getTime();
         timerInterval = setInterval(updateTimer, 1000);
         $('#startButton').prop('disabled', true);
         $('#stopButton').prop('disabled', false);
+        saveTime(totalTime);
     });
 
     function updateTimer() {
@@ -42,27 +50,27 @@ document.addEventListener('DOMContentLoaded', function () {
         return number < 10 ? '0' + number : number;
     }
 
-    function saveTime() {
+    function saveTime(totalTime) {
         const endTime = new Date().toISOString();
-        console.log(`Nombre: ${nombreInput.value}`);
-        console.log(`Inicio: ${new Date(startTime).toISOString()}`);
-        console.log(`Fin: ${endTime}`);
-    }
+        const data = {
+            name: nombreInput.value,
+            totalTime: totalTime,
+        };
 
-    $('#startButton, #stopButton').on('click', function () {
-        const nombre = $('#name').val();
-
-        $.ajax({
-            url: '/check-task',
+        fetch('/check-task', {
             method: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({ name: nombre }),
-            success: function (data) {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => response.json())
+            .then(data => {
                 console.log(data.message);
-            },
-            error: function (error) {
+                // Puedes hacer algo con la respuesta del backend, como mostrar un mensaje al usuario
+            })
+            .catch(error => {
                 console.error('Error:', error);
-            },
-        });
-    });
+            });
+    }
 });

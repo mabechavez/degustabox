@@ -20,13 +20,19 @@ class TaskService implements TaskServiceInterface {
         return $task;
     }
 
-    public function updateTask(string $name, int $totalTime, \DateTimeInterface $endDate, string $status): void {
+    public function updateTask(string $name, int $totalTime, \DateTimeInterface $endDate, string $status): Task {
         $existingTask = $this->taskRepository->getByName($name);
 
         if ($existingTask) {
-            $updatedTask = new Task($existingTask->getName(), $totalTime, $existingTask->getStartDate(),  $endDate, $status);
-            $updatedTask->update($existingTask);
-            $this->taskRepository->update($updatedTask);
+            $existingTask->update($totalTime+$existingTask->getTotalTime(), $endDate, $status);
+            $this->taskRepository->update($existingTask);
         }
+        return $existingTask;
+    }
+
+    public function checkTask(string $name): bool {
+        $existingTask = $this->taskRepository->getByName($name);
+
+        return (bool)$existingTask;
     }
 }

@@ -6,8 +6,8 @@ namespace App\UI;
 
 use App\task\Application\Service\TaskServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 final class TaskController extends AbstractController {
@@ -18,21 +18,20 @@ final class TaskController extends AbstractController {
     }
 
     #[Route('/check-task', name: 'check_task', methods: ['POST'])]
-    public function checkTask(Request $request): Response {
+    public function checkTask(Request $request): JsonResponse {
         $data = json_decode($request->getContent(), true);
         $name = $data['name'];
 
-        try {
+        if($this->taskService->checkTask($name)){
             $totalTime = $data['totalTime'];
-            $status = $data['status'];
+            $status = $data['totalTime'] ? 'stoped' : 'started';
             $this->taskService->updateTask($name, $totalTime, new \DateTime(), $status);
 
-            return new Response('Task updated successfully', 200);
-        } catch (\Exception $e) {
-            // Si la tarea no existe, crea una nueva
+            return new JsonResponse('Task updated successfully', 200);
+        }else{
             $this->taskService->createTask($name, new \DateTime());
 
-            return new Response('Task created successfully', 201);
+            return new JsonResponse('Task created successfully', 201);
         }
     }
 }
